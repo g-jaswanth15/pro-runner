@@ -124,7 +124,7 @@ function increment(){
         document.getElementById('try').style.display = "block"
         document.getElementById('score').style.display = "block"
         document.getElementById('highscore').style.display = "block"
-        var totalscore = score /10 ;
+        var totalscore = Math.round(score /10)  ;
         document.getElementById('score').innerText = "🎉 SCORE :" + totalscore + "🎉"
         document.getElementById('tryagain').style.display = "block"
         document.getElementById('tryagain').addEventListener('click',()=>{
@@ -160,7 +160,7 @@ roofholes.forEach(roof =>{
         document.getElementById('try').style.display = "block"
         document.getElementById('score').style.display = "block"
         document.getElementById('highscore').style.display = "block"
-        var totalscore = score /10 ;
+        var totalscore = Math.round(score /10) ;
         document.getElementById('score').innerText = "🎉 SCORE :" + totalscore + "🎉"
         document.getElementById('tryagain').style.display = "block"
         document.getElementById('tryagain').addEventListener('click',()=>{
