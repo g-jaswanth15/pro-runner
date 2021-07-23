@@ -49,9 +49,12 @@ const rectangle2 = {
     y:canvas.height/4,
     dx:5
 }
+const diamond = {
+    y:canvas.height/4+70
+}
 console.log(canvas.width)
 
-
+var colors = ["blue","green","yellow"]
 //drawing roof,floor,obstacles,player 
 
 function player(){
@@ -76,6 +79,15 @@ function player(){
     ctx.lineTo(line1.x+20,line2.y)
     ctx.lineTo(line1.x+40,line1.y)
     ctx.fill()
+
+    ctx.beginPath()
+    ctx.fillStyle = "yellow"
+    ctx.moveTo(diamond.x,diamond.y)
+    ctx.lineTo(diamond.x-30,diamond.y+30)
+    ctx.lineTo(diamond.x,diamond.y+60)
+    ctx.lineTo(diamond.x+30,diamond.y+30)
+    ctx.closePath()
+    ctx.fill()
 }
 
 //creating holes
@@ -90,12 +102,28 @@ class holes{
 
     draw(){
        ctx.beginPath()
-       ctx.fillStyle ="rgb(243, 241, 239)"
+       ctx.fillStyle = "rgb(243, 241, 239)"
        ctx.fillRect(this.x,this.y,this.width,this.height)
        ctx.fill()
     }
 }
 
+class powerup{
+    constructor(x){
+        this.x = x
+    }
+
+    draw1(){
+        ctx.beginPath()
+        ctx.fillStyle = colors[Math.floor(Math.random() *3)]
+        ctx.moveTo(this.x,diamond.y)
+        ctx.lineTo(this.x-30,diamond.y+30)
+        ctx.lineTo(this.x,diamond.y+60)
+        ctx.lineTo(this.x+30,diamond.y+30)
+        ctx.closePath()
+        ctx.fill()
+    }
+}
 let roofholes = []
 let enemy = []
 var rd = Math.random()
@@ -128,6 +156,8 @@ else{
     roofholes.push(new holes(some+600,canvas.height/4))
 }
     
+let powerups = new powerup(canvas.width +30)
+
 let animateid;
 var count =1;
 var score = 0;
@@ -233,6 +263,7 @@ function increment(){
     let imagedata2 = ctx.getImageData(circle.x -10 ,circle.y, 20,20)
     let imagedata3 = ctx.getImageData(circle.x,circle.y,20,20)
 
+
     red2 = imagedata2.data[0];
     green2 = imagedata2.data[1];
     blue2 = imagedata2.data[2];
@@ -275,42 +306,46 @@ function increment(){
         document.getElementById('highscore').innerText ="🔥BEST :" + highscore + "🔥"
         }
     }
-        
+       
+    powerups.draw1()
     //for changing the room after completion of room
+function something(){
+    rd = Math.random()
+    console.log(rd)
+    if(rd<0.5){
+        some=  Math.floor(rd*(canvas.width-150) + 100)
+        console.log(some)
+    }
+    else{
+        some=  Math.floor(rd*((canvas.width/2)-150) )
+        console.log(some)
+    }
 
+    enemy[0].x=some
+
+    enemy[1].x =some+400
+    
+    //enemy[2].x =some+700
+    
+    if(rd>0.3 && rd <0.5 ){
+        roofholes[0].x = some-150
+        //    roofholes[1].x = some+200
+        //    roofholes[2].x = some+500
+    }
+    else{
+        roofholes[0].x = some+200
+        //roofholes[1].x = some+600
+    }
+}
     if(line1.x+60 > canvas.width){
         line1.x = line1.dx
 
+        powerups.x = canvas.width+30
         count =count+1
         console.log(count)
 
         if((count%2) !=0){
-                rd = Math.random()
-                console.log(rd)
-                if(rd<0.5){
-                    some=  Math.floor(rd*(canvas.width-150) + 100)
-                    console.log(some)
-                }
-                else{
-                    some=  Math.floor(rd*((canvas.width/2)-150) )
-                    console.log(some)
-                }
-            
-                enemy[0].x=some
-            
-                enemy[1].x =some+400
-                
-                //enemy[2].x =some+700
-                
-                if(rd>0.3 && rd <0.5 ){
-                    roofholes[0].x = some-150
-                    //    roofholes[1].x = some+200
-                    //    roofholes[2].x = some+500
-                }
-                else{
-                    roofholes[0].x = some+200
-                    //roofholes[1].x = some+600
-                }
+            something()
             xdist = canvas.width+30
             circle.x = canvas.width +30   
 
@@ -361,11 +396,34 @@ function increment(){
         }
 
         if(count>3){
-            line1.dy = 3
+            line1.dx= 3
+            var linedx = line1.dx
             circle.dy += 0.25
         }
-        if(count >6){
-            line1.dy += 0.5
+        
+        var somedist = line1.x
+    }
+    if(count%3 == 0){
+        powerups.x = 300
+        
+        var podist = powerups.x - line1.x -30-28
+        if(podist <1 && podist > -60){
+            console.log("hi")
+            console.log(somedist)
+            var some1dist = line1.x -somedist
+            enemy.forEach(eny=>{
+                eny.x = canvas.width+30
+            })
+            roofholes.forEach(hole=>{
+                hole.x = canvas.width+30
+            }) 
+            if(line1.x <canvas.width){
+                let line1dx = 6
+                line1.dx = line1dx
+            }
+            else{
+                line1.dx = linedx
+            }
         }
     }
 }
