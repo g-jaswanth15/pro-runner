@@ -293,7 +293,7 @@ function stoping(){
         document.getElementById('tryagain').addEventListener('click',()=>{
         window.location.reload(true)
         })
-        //canvas.style.display = "none"
+        canvas.style.display = "none"
         if(localStorage.getItem("best") == null){
         localStorage.setItem("best",totalscore)
         var highscore = localStorage.getItem("best")
