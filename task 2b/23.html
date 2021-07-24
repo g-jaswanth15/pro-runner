@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            game
+        </title>
+        <link rel="stylesheet" href="23.css">
+    </head>
+    <body>
+        <audio src="jump.mp3" id="jump"></audio>
+        <audio src="PowerUp.mp3" id="power"></audio>
+        <audio src="gameover.wav" id="gameover"></audio>
+        <audio src="run.mp3" id="run"></audio >
+        <div style="margin-bottom: 140px;"></div>
+        <h1>🏃PRO RUNNER🏃</h1>
+        <div style="margin-bottom: 50px;"></div>
+        <div id="start">
+        <button id="startgame" >START GAME</button>
+        </div>
+        <div id="instructions">
+            <ul>
+                <li>👉Click start button to start the game.</li><br>
+                <li>👉Click on the "Screen" or "Spacebar" to move the Player Up and Down. </li><br>
+                <li>👉Two parllel surfaces , that is floor and roof.</li><br>
+                <li>👉Holes and Obstacles are there on floor and roof.</li><br>
+                <li>👉In game, there are rooms after completing one room the player enters into another room.</li><br>
+                <li>👉If the Player fall on holes or get contact with obstacles then game ends Up.</li><br>
+                <li>👉In Some Places the PowerUps will be there ,The player can pick the powerUp to activate it.</li>
+            </ul>
+        </div>
+        <div style="margin-top : 50px;"></div>
+        <div id="start">
+            <img id="run" src="21.gif" alt="">
+            <img id="try" src="gameover1.webp" alt="">
+        </div>
+
+        <button id="reload">↻</button>
+        <div style="margin-bottom: 150px;"></div>
+        <div id="score"></div>
+        <div style="margin-bottom: 50px;"></div>
+        <div id="highscore"></div>
+        <div style="margin-bottom: 50px;"></div>
+        <div id="start">
+        <button id="tryagain">TRY AGAIN</button>
+        </div>
+        <div style="margin-bottom: 50px;"></div>
+        <canvas id="canvas" height="600" width="600" ></canvas>
+
+        <script src="23.js"></script>
+    </body>
+
+</html>
